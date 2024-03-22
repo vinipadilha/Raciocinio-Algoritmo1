@@ -7,14 +7,11 @@ day = datetime.datetime.now().day
 hour = datetime.datetime.now().hour
 minute = datetime.datetime.now().minute
 
-
-
 year_user = int(input("Digite seu ano de nascimento: "))
 month_user = int(input("Digite seu mês de nascimento: "))
 day_user = int(input("Digite seu dia de nascimento: "))
 hour_user = float(input("Digite sua hora de nascimento: "))
 minute_user = float(input("Digite seu minuto de nascimento: "))
-
 
 age = year - year_user
 
