@@ -37,3 +37,4 @@ if sobra2 == segundoDigitoVerif:
     print("A segunda parte da validação está correta.")
 else:
     print("A segunda parte da validação não está correta!")
+    
