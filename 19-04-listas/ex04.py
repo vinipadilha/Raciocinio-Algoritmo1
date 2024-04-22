@@ -8,10 +8,22 @@ matriz1 = [
     [3, 6, 9]
     ]
 """
+def somar(matriz1, matriz2):
+    somaMatriz = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+    for i in range(3):
+        for x in range(3):
+            somaMatriz[i][x] = matriz1[i][x] + matriz2[i][x]
+
+    return somaMatriz
+
+def ler(matriz):
+     for y in matriz:
+        print(y)
 
 matriz1 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 matriz2 = [[3, 2, 3], [1, 3, 3], [0, 2, 2]]
 
-for i in matriz1:
-    for x in matriz1:
-    
+resultadoSoma = somar(matriz1, matriz2)
+print("Matriz resultante da soma das matrizes:")
+ler(resultadoSoma)
