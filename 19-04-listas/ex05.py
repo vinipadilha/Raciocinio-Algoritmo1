@@ -6,16 +6,19 @@ matriz identidade."""
 
 size = int(input("Digite o tamanho da matriz desejada: "))
 
-def matrizIdentidade(tamanho):
+def matrizIdentidade(size):
     matriz = []
-    for i in range(tamanho):
+    for i in range(size):
         linha = []
-        for x in range(tamanho):
+        for x in range(size):
             if i == x:
                 linha.append(1)
             else:
                 linha.append(0)     
+        matriz.append(linha)
     return matriz
 
-def printarMatriz(matriz):
-    for y in matriz:
+matrizID = matrizIdentidade(size)
+
+for linha in matrizID:
+    print(linha)
