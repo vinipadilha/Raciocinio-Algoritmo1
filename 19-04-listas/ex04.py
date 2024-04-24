@@ -23,7 +23,7 @@ def ler(matriz):
 
 matriz1 = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 matriz2 = [[3, 2, 3], [1, 3, 3], [0, 2, 2]]
-
+    
 resultadoSoma = somar(matriz1, matriz2)
 print("Matriz resultante da soma das matrizes:")
 ler(resultadoSoma)
