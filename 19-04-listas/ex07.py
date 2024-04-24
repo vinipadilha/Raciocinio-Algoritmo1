@@ -28,6 +28,8 @@ def ler(matrizNums):
         print(y)
 
 ler(matrizNums)
+print("Positivo")
+
 
         
 
