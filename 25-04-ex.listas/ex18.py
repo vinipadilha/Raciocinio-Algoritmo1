@@ -21,3 +21,5 @@ resultado da votação em um arquivo texto no disco, obedecendo a mesma disposi�
 na tela"""
 
 
+
+
