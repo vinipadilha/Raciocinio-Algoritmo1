@@ -32,31 +32,28 @@ def resposta():
     votos = [0, 0, 0, 0, 0, 0]
     totalVotos = 0  
     voto = int(input("Digite a opção escolhida (de 1 a 6, ou 0 para encerrar): "))
+    
+    while voto != 0:
+        if 1 <= voto <= 6:
+            votos[voto - 1] += 1 
+            totalVotos += 1
+            print("Voto computado para a opção", voto)
+        else:
+            print("Digite um valor válido (de 1 a 6).")
+        voto = int(input("Digite a opção escolhida (de 1 a 6, ou 0 para encerrar): "))
+    
+    print("\nSistema Operacional    Votos      %")
+    print("===================    =====     ======")
+    print(f"Windows Server:          {votos[0]}       {calcularPercentual(votos[0], totalVotos):.1f}%")
+    print(f"Unix:                    {votos[1]}       {calcularPercentual(votos[1], totalVotos):.1f}%")
+    print(f"Linux:                   {votos[2]}       {calcularPercentual(votos[2], totalVotos):.1f}%")
+    print(f"Netware:                 {votos[3]}       {calcularPercentual(votos[3], totalVotos):.1f}%")
+    print(f"Mac OS:                  {votos[4]}       {calcularPercentual(votos[4], totalVotos):.1f}%")
+    print(f"Outro:                   {votos[5]}       {calcularPercentual(votos[5], totalVotos):.1f}%")
+    print("===================    =====")
+    print(f"Total                    {totalVotos}")
 
-while voto != 0:
-    if 1 <= voto <= 6:
-        votos[voto - 1] += 1 
-        totalVotos += 1
-        print("Voto computado para a opção", voto)
-    else:
-        print("Digite um valor válido (de 1 a 6).")
-    voto = int(input("Digite a opção escolhida (de 1 a 6, ou 0 para encerrar): "))
-
-print("Sistema Operadional     Votos     %")
-print("===================     =====     ===")
-print("Resultado da votação:")
-print(f"Windows Server:     {votos[0]} {calcularPercentual(votos[0], totalVotos):.2f} %")
-print(f"Unix:              {votos[1]} {calcularPercentual(votos[1], totalVotos):.2f} %")
-print(f"Linux:             {votos[2]} {calcularPercentual(votos[2], totalVotos):.2f} %")
-print(f"Netware:           {votos[3]} {calcularPercentual(votos[3], totalVotos):.2f} %")
-print(f"Mac OS:            {votos[4]} {calcularPercentual(votos[4], totalVotos):.2f} %")
-print(f"Outro:             {votos[5]} {calcularPercentual(votos[5], totalVotos):.2f} %")
-print("===================     =====")
-print(f"Total               {totalVotos}")
-
-
-
-
+resposta()
 
 
 
