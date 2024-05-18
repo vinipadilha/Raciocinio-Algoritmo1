@@ -8,6 +8,5 @@ def verificar_sinal(numero):
         return 'N'
 num = float(input("Digite um número: "))
 resultado = verificar_sinal(num)
+
 print("O resultado é:", resultado)
-
-
