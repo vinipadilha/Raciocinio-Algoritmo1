@@ -4,7 +4,7 @@
 nB = input("Digite o número binário que deseja converter: ")
 nD = 0 
 
-for i
+for i in range():
 
 
 
