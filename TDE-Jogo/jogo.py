@@ -3,43 +3,42 @@ import random
 pygame.init()
 
 # DEFINIR DIMENSOES DA TELA 
-#=====================================================================
 screen_width = 500
 screen_height = 500
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("TDE - Jogo")
-#=====================================================================
+screen = pygame.display.set_mode((screen_width, screen_height)) #CRIA A JANELA 
+pygame.display.set_caption("TDE - Jogo") #TITULO NA JANELA 
 
 
-
-# DEFININDO AS CORES EM VARIAVEIS 
-#=====================================================================
+# DEFININDO AS CORES EM VARIAVEIS (RGB)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-#=====================================================================
 
-# Definindo a posição inicial do jogador
-player_size = 50
-player_pos = [screen_width // 2, screen_height // 2]
 
-# Definindo a posição inicial dos alvos verdes e obstáculos vermelhos
-target_size = 50
+# POSICAO INICIAL
+player_size = 50 #tamanho quadrado jogador
+player_pos = [screen_width // 2, screen_height // 2] #centraliza na tela, duas barras para sempre arredondar o valor
+
+
+# POSICAO INICIAL ALVOS
+target_size = 50 #tamanho alvos
 target_pos = [random.randint(0, screen_width - target_size), random.randint(0, screen_height - target_size)]
 obstacle_pos = [random.randint(0, screen_width - target_size), random.randint(0, screen_height - target_size)]
+#define a posição dos alvos em algum lugar aleatório da tela 
 
-# Definindo a velocidade do jogador
+
+# VELOCIDADE
 player_speed = 10
 
-# Inicializando a pontuação e as condições de vitória/derrota
+#PONTUACOES
 score = 0
 win_score = 5
 game_over = False
+font = pygame.font.Font(None, 28) #tamanho da fonte
 
-# Configurando a fonte para exibir a pontuação
-font = pygame.font.Font(None, 28)
+
 
 # Loop principal do jogo
 running = True
@@ -60,7 +59,7 @@ while running:
     if keys[pygame.K_DOWN]:
         player_pos[1] += player_speed
 
-    # Garantindo que o jogador não saia da tela
+    # LIMITE DE TELA
     player_pos[0] = max(0, min(player_pos[0], screen_width - player_size))
     player_pos[1] = max(0, min(player_pos[1], screen_height - player_size))
 
