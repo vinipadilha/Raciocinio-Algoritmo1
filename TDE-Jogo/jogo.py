@@ -3,9 +3,9 @@ import random
 pygame.init()
 
 # DEFINIR DIMENSOES DA TELA 
-screen_width = 500
-screen_height = 500
-screen = pygame.display.set_mode((screen_width, screen_height)) #CRIA A JANELA 
+larguraTela = 500
+alturaTela = 500
+tela = pygame.display.set_mode((larguraTela, alturaTela)) #CRIA A JANELA 
 pygame.display.set_caption("TDE - Jogo") #TITULO NA JANELA 
 
 
@@ -18,100 +18,107 @@ BLACK = (0, 0, 0)
 
 
 # POSICAO INICIAL
-player_size = 50 #tamanho quadrado jogador
-player_pos = [screen_width // 2, screen_height // 2] #centraliza na tela, duas barras para sempre arredondar o valor
+tamanhoJogador = 50 #tamanho quadrado jogador
+posicaoJogador = [larguraTela // 2, alturaTela // 2] #centraliza na tela, duas barras para sempre arredondar o valor
 
 
 # POSICAO INICIAL ALVOS
-target_size = 50 #tamanho alvos
-target_pos = [random.randint(0, screen_width - target_size), random.randint(0, screen_height - target_size)]
-obstacle_pos = [random.randint(0, screen_width - target_size), random.randint(0, screen_height - target_size)]
+tamanhoAlvo  = 50 #tamanho alvos
+posicaoAlvo = [random.randint(0, larguraTela  - tamanhoAlvo), random.randint(0, alturaTela  - tamanhoAlvo)]
+posicaoObstaculo  = [random.randint(0, larguraTela  - tamanhoAlvo), random.randint(0, alturaTela  - tamanhoAlvo)]
 #define a posição dos alvos em algum lugar aleatório da tela 
 
 
-# VELOCIDADE
-player_speed = 10
+# velocidade 10px por movimento
+velocidadeJogador = 10
 
 #PONTUACOES
-score = 0
-win_score = 5
-game_over = False
-font = pygame.font.Font(None, 28) #tamanho da fonte
+pontuacao  = 0
+pontuacaoVitoria  = 5
+fimDeJogo  = False #indica que o jogo terminou
+fonte = pygame.font.Font(None, 28) #tamanho da fonte
 
 
 
-# Loop principal do jogo
-running = True
+#JOGO
+rodando  = True #mantem o jogo rodando
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+while rodando :
+    for event in pygame.event.get(): #verifica eventos, como clique do mouse ou teclas
+        if event.type == pygame.QUIT: #encerra o jogo se o evento for fechamento de tela 
+            rodando = False
 
-    keys = pygame.key.get_pressed()
+    teclas = pygame.key.get_pressed() #verifica as teclas que estao sendo pressionadas
 
-    if keys[pygame.K_LEFT]:
-        player_pos[0] -= player_speed
-    if keys[pygame.K_RIGHT]:
-        player_pos[0] += player_speed
-    if keys[pygame.K_UP]:
-        player_pos[1] -= player_speed
-    if keys[pygame.K_DOWN]:
-        player_pos[1] += player_speed
+    if teclas[pygame.K_LEFT]:
+        posicaoJogador[0] -= velocidadeJogador   #esquerda
+    if teclas[pygame.K_RIGHT]:
+        posicaoJogador[0] += velocidadeJogador   #direita
+    if teclas[pygame.K_UP]:
+        posicaoJogador[1] -= velocidadeJogador   #cima
+    if teclas[pygame.K_DOWN]:
+        posicaoJogador[1] += velocidadeJogador   #baixo
 
-    # LIMITE DE TELA
-    player_pos[0] = max(0, min(player_pos[0], screen_width - player_size))
-    player_pos[1] = max(0, min(player_pos[1], screen_height - player_size))
 
-    # Verificando se o jogador pegou o alvo verde
-    if (player_pos[0] < target_pos[0] < player_pos[0] + player_size or player_pos[0] < target_pos[0] + target_size < player_pos[0] + player_size) and \
-       (player_pos[1] < target_pos[1] < player_pos[1] + player_size or player_pos[1] < target_pos[1] + target_size < player_pos[1] + player_size):
-        score += 1
-        target_pos = [random.randint(0, screen_width - target_size), random.randint(0, screen_height - target_size)]
-        obstacle_pos = [random.randint(0, screen_width - target_size), random.randint(0, screen_height - target_size)]
+    #mantem o player dentro da tela 
+    posicaoJogador[0] = max(0, min(posicaoJogador[0], larguraTela  - tamanhoJogador))
+    posicaoJogador[1] = max(0, min(posicaoJogador[1], alturaTela  - tamanhoJogador))
 
-    # Verificando se o jogador tocou em um obstáculo vermelho
-    if (player_pos[0] < obstacle_pos[0] < player_pos[0] + player_size or player_pos[0] < obstacle_pos[0] + target_size < player_pos[0] + player_size) and \
-       (player_pos[1] < obstacle_pos[1] < player_pos[1] + player_size or player_pos[1] < obstacle_pos[1] + target_size < player_pos[1] + player_size):
-        game_over = True
+    #verificação de colisão com alvo verde
+    if (posicaoJogador[0] < posicaoAlvo[0] < posicaoJogador[0] + tamanhoJogador or
+        posicaoJogador[0] < posicaoAlvo[0] + tamanhoAlvo < posicaoJogador[0] + tamanhoJogador) and \
+       (posicaoJogador[1] < posicaoAlvo[1] < posicaoJogador[1] + tamanhoJogador or
+        posicaoJogador[1] < posicaoAlvo[1] + tamanhoAlvo < posicaoJogador[1] + tamanhoJogador):
+        pontuacao += 1 #adiciona +1 para a pontuação
 
-    # Preenchendo a tela com a cor preta
-    screen.fill(BLACK)
+        #define novas posições
+        posicaoAlvo = [random.randint(0, larguraTela - tamanhoAlvo), random.randint(0, alturaTela - tamanhoAlvo)]
+        posicaoObstaculo = [random.randint(0, larguraTela - tamanhoAlvo), random.randint(0, alturaTela - tamanhoAlvo)]
 
-    # Desenhando o jogador
-    pygame.draw.rect(screen, BLUE, (player_pos[0], player_pos[1], player_size, player_size))
+    #colisão com alvo vermelho
+    if (posicaoJogador[0] < posicaoObstaculo[0] < posicaoJogador[0] + tamanhoJogador or
+        posicaoJogador[0] < posicaoObstaculo[0] + tamanhoAlvo < posicaoJogador[0] + tamanhoJogador) and \
+       (posicaoJogador[1] < posicaoObstaculo[1] < posicaoJogador[1] + tamanhoJogador or
+        posicaoJogador[1] < posicaoObstaculo[1] + tamanhoAlvo < posicaoJogador[1] + tamanhoJogador):
+        fimDeJogo = True
 
-    # Desenhando o alvo verde
-    pygame.draw.rect(screen, GREEN, (target_pos[0], target_pos[1], target_size, target_size))
+    # fundo de tela
+    tela.fill(BLACK)
 
-    # Desenhando o obstáculo vermelho
-    pygame.draw.rect(screen, RED, (obstacle_pos[0], obstacle_pos[1], target_size, target_size))
+    # jogador
+    pygame.draw.rect(tela, BLUE, (posicaoJogador[0], posicaoJogador[1], tamanhoJogador, tamanhoJogador))
 
-    # Exibindo a pontuação
-    score_text = font.render(f"Pontuação: {score}", True, WHITE)
-    screen.blit(score_text, (10, 10))
+    # alvo verde
+    pygame.draw.rect(tela, GREEN, (posicaoAlvo[0], posicaoAlvo[1], tamanhoAlvo, tamanhoAlvo))
 
-    # Exibindo a condição de derrota
-    if game_over:
-        game_over_text = font.render("Você Perdeu!", True, WHITE)
-        screen.blit(game_over_text, (screen_width // 2 - 60, screen_height // 2 - 20))
+    # alvo vermelho
+    pygame.draw.rect(tela, RED, (posicaoObstaculo[0], posicaoObstaculo[1], tamanhoAlvo, tamanhoAlvo))
+
+    # pontuação
+    textoPontuacao = fonte.render(f"Pontuação: {pontuacao}", True, WHITE)
+    tela.blit(textoPontuacao, (10, 10))
+
+    #derrota
+    if fimDeJogo:
+        textoFimDeJogo = fonte.render("Você Perdeu!", True, WHITE)
+        tela.blit(textoFimDeJogo, (larguraTela // 2 - 60, alturaTela // 2 - 20))
         pygame.display.flip()
         pygame.time.wait(2000)
-        running = False
+        rodando = False
+    #se o game over for TRUE, encerrao jogo após 2 seg e exibe VOCE PERDEU na tela 
 
-    # Verificando condição de vitória
-    if score >= win_score:
-        victory_text = font.render("Você Venceu!", True, WHITE)
-        screen.blit(victory_text, (screen_width // 2 - 60, screen_height // 2 - 20))
+    #vitória
+    if pontuacao >= pontuacaoVitoria:
+        textoVitoria = fonte.render("Você Venceu!", True, WHITE)
+        tela.blit(textoVitoria, (larguraTela // 2 - 60, alturaTela // 2 - 20))
         pygame.display.flip()
         pygame.time.wait(2000)
-        running = False
+        rodando = False
+        # se a pontuação atingir 5 exibe VOCE VENCEU e encerra o jogo apos 2 seg
 
-    # Atualizando a tela
+    #atualiza a tela 
     pygame.display.flip()
 
-    # Controlando a taxa de atualização
-    pygame.time.Clock().tick(30)
+    pygame.time.Clock().tick(60) #60fps
 
-# Encerrando o Pygame
 pygame.quit()
