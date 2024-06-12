@@ -1,21 +1,25 @@
 import pygame
 import random
-
-# Inicializando o Pygame
 pygame.init()
 
-# Definindo as dimensões da tela
+# DEFINIR DIMENSOES DA TELA 
+#=====================================================================
 screen_width = 500
 screen_height = 500
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("TDE - Jogo")
+#=====================================================================
 
-# Definindo as cores
+
+
+# DEFININDO AS CORES EM VARIAVEIS 
+#=====================================================================
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+#=====================================================================
 
 # Definindo a posição inicial do jogador
 player_size = 50
