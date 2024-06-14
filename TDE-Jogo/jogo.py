@@ -91,6 +91,7 @@ while rodando :
     # alvo verde
     pygame.draw.rect(tela, GREEN, (posicaoAlvo[0], posicaoAlvo[1], tamanhoAlvo, tamanhoAlvo))
 
+
     # alvo vermelho
     pygame.draw.rect(tela, RED, (posicaoObstaculo[0], posicaoObstaculo[1], tamanhoAlvo, tamanhoAlvo))
 
