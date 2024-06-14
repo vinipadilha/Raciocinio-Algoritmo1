@@ -6,8 +6,8 @@ pygame.init()
 # DEFINIR DIMENSÕES DA TELA
 larguraTela = 1200
 alturaTela = 600
-tela = pygame.display.set_mode((larguraTela, alturaTela)) # CRIA A JANELA 
-pygame.display.set_caption("TDE - Jogo") # TÍTULO NA JANELA 
+tela = pygame.display.set_mode((larguraTela, alturaTela))  # CRIA A JANELA
+pygame.display.set_caption("TDE - Jogo")  # TÍTULO NA JANELA
 
 # DEFININDO AS CORES EM VARIÁVEIS (RGB)
 BLUE = (0, 0, 255)
@@ -17,13 +17,13 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # POSIÇÃO INICIAL
-tamanhoJogador = 30 # tamanho quadrado jogador
-posicaoJogador = [larguraTela // 2, alturaTela // 2] # centraliza na tela, duas barras para sempre arredondar o valor
+tamanhoJogador = 30  # tamanho quadrado jogador
+posicaoJogador = [larguraTela // 2, alturaTela // 2]  # centraliza na tela, duas barras para sempre arredondar o valor
 
 # POSIÇÃO INICIAL ALVOS
-tamanhoAlvo = 50 # tamanho alvos
+tamanhoAlvo = 50  # tamanho alvos
 posicaoAlvo = [random.randint(0, larguraTela - tamanhoAlvo), random.randint(0, alturaTela - tamanhoAlvo)]
-numObstaculos = 70 # número de obstáculos vermelhos
+numObstaculos = 60  # número de obstáculos vermelhos
 
 # Função para verificar colisão
 def colide(pos1, tamanho1, pos2, tamanho2):
@@ -53,40 +53,45 @@ velocidadeJogador = 4
 # PONTUAÇÕES
 pontuacao = 0
 pontuacaoVitoria = 5
-fimDeJogo = False # indica que o jogo terminou
-fonte = pygame.font.Font(None, 28) # tamanho da fonte
+fimDeJogo = False  # indica que o jogo terminou
+fonte = pygame.font.Font(None, 28)  # tamanho da fonte
 
 # JOGO
-rodando = True # mantem o jogo rodando
+rodando = True  # mantem o jogo rodando
 
 while rodando:
-    for event in pygame.event.get(): # verifica eventos, como clique do mouse ou teclas
-        if event.type == pygame.QUIT: # encerra o jogo se o evento for fechamento de tela 
+    for event in pygame.event.get():  # verifica eventos, como clique do mouse ou teclas
+        if event.type == pygame.QUIT:  # encerra o jogo se o evento for fechamento de tela
             rodando = False
 
-    teclas = pygame.key.get_pressed() # verifica as teclas que estão sendo pressionadas
+    teclas = pygame.key.get_pressed()  # verifica as teclas que estão sendo pressionadas
 
     if teclas[pygame.K_LEFT]:
-        posicaoJogador[0] -= velocidadeJogador   # esquerda
+        posicaoJogador[0] -= velocidadeJogador  # esquerda
     if teclas[pygame.K_RIGHT]:
-        posicaoJogador[0] += velocidadeJogador   # direita
+        posicaoJogador[0] += velocidadeJogador  # direita
     if teclas[pygame.K_UP]:
-        posicaoJogador[1] -= velocidadeJogador   # cima
+        posicaoJogador[1] -= velocidadeJogador  # cima
     if teclas[pygame.K_DOWN]:
-        posicaoJogador[1] += velocidadeJogador   # baixo
+        posicaoJogador[1] += velocidadeJogador  # baixo
 
-    # mantem o player dentro da tela 
+    # mantem o player dentro da tela
     posicaoJogador[0] = max(0, min(posicaoJogador[0], larguraTela - tamanhoJogador))
     posicaoJogador[1] = max(0, min(posicaoJogador[1], alturaTela - tamanhoJogador))
 
     # verificação de colisão com alvo verde
     if colide(posicaoJogador, tamanhoJogador, posicaoAlvo, tamanhoAlvo):
-        pontuacao += 1 # adiciona +1 para a pontuação
+        pontuacao += 1  # adiciona +1 para a pontuação
 
         # Atualiza as posições do alvo e dos obstáculos ao coletar o alvo verde
         while True:
             posicaoAlvo = [random.randint(0, larguraTela - tamanhoAlvo), random.randint(0, alturaTela - tamanhoAlvo)]
-            if not colide(posicaoAlvo, tamanhoAlvo, posicaoJogador, tamanhoJogador):
+            colisao_com_obstaculo = False
+            for posicaoObstaculo in posicoesObstaculos:
+                if colide(posicaoAlvo, tamanhoAlvo, posicaoObstaculo, tamanhoAlvo):
+                    colisao_com_obstaculo = True
+                    break
+            if not colisao_com_obstaculo:
                 break
 
         posicoesObstaculos = []
@@ -150,3 +155,4 @@ while rodando:
     pygame.time.Clock().tick(60) # 60fps
 
 pygame.quit()
+
