@@ -4,7 +4,7 @@ pygame.init()
 
 # DEFINIR DIMENSOES DA TELA 
 larguraTela = 500
-alturaTela = 500
+alturaTela = 400
 tela = pygame.display.set_mode((larguraTela, alturaTela)) #CRIA A JANELA 
 pygame.display.set_caption("TDE - Jogo") #TITULO NA JANELA 
 
@@ -25,12 +25,13 @@ posicaoJogador = [larguraTela // 2, alturaTela // 2] #centraliza na tela, duas b
 # POSICAO INICIAL ALVOS
 tamanhoAlvo  = 50 #tamanho alvos
 posicaoAlvo = [random.randint(0, larguraTela  - tamanhoAlvo), random.randint(0, alturaTela  - tamanhoAlvo)]
-posicaoObstaculo  = [random.randint(0, larguraTela  - tamanhoAlvo), random.randint(0, alturaTela  - tamanhoAlvo)]
+tamanhoObs = 70
+posicaoObstaculo  = [random.randint(0, larguraTela  - tamanhoObs), random.randint(0, alturaTela  - tamanhoObs)]
 #define a posição dos alvos em algum lugar aleatório da tela 
 
 
 # velocidade 10px por movimento
-velocidadeJogador = 10
+velocidadeJogador = 11
 
 #PONTUACOES
 pontuacao  = 0
@@ -40,11 +41,9 @@ fonte = pygame.font.Font(None, 28) #tamanho da fonte
 
 
 
-#JOGO
-rodando  = True #mantem o jogo rodando
-
+rodando  = True 
 while rodando :
-    for event in pygame.event.get(): #verifica eventos, como clique do mouse ou teclas
+    for event in pygame.event.get(): #verifica clique do mouse ou teclas
         if event.type == pygame.QUIT: #encerra o jogo se o evento for fechamento de tela 
             rodando = False
 
@@ -73,13 +72,13 @@ while rodando :
 
         #define novas posições
         posicaoAlvo = [random.randint(0, larguraTela - tamanhoAlvo), random.randint(0, alturaTela - tamanhoAlvo)]
-        posicaoObstaculo = [random.randint(0, larguraTela - tamanhoAlvo), random.randint(0, alturaTela - tamanhoAlvo)]
+        posicaoObstaculo = [random.randint(0, larguraTela - tamanhoObs), random.randint(0, alturaTela - tamanhoObs)]
 
     #colisão com alvo vermelho
     if (posicaoJogador[0] < posicaoObstaculo[0] < posicaoJogador[0] + tamanhoJogador or
-        posicaoJogador[0] < posicaoObstaculo[0] + tamanhoAlvo < posicaoJogador[0] + tamanhoJogador) and \
+        posicaoJogador[0] < posicaoObstaculo[0] + tamanhoObs < posicaoJogador[0] + tamanhoJogador) and \
        (posicaoJogador[1] < posicaoObstaculo[1] < posicaoJogador[1] + tamanhoJogador or
-        posicaoJogador[1] < posicaoObstaculo[1] + tamanhoAlvo < posicaoJogador[1] + tamanhoJogador):
+        posicaoJogador[1] < posicaoObstaculo[1] + tamanhoObs < posicaoJogador[1] + tamanhoJogador):
         fimDeJogo = True
 
     # fundo de tela
@@ -93,7 +92,7 @@ while rodando :
 
 
     # alvo vermelho
-    pygame.draw.rect(tela, RED, (posicaoObstaculo[0], posicaoObstaculo[1], tamanhoAlvo, tamanhoAlvo))
+    pygame.draw.rect(tela, RED, (posicaoObstaculo[0], posicaoObstaculo[1], tamanhoObs, tamanhoObs))
 
     # pontuação
     textoPontuacao = fonte.render(f"Pontuação: {pontuacao}", True, WHITE)
