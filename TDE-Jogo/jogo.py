@@ -36,7 +36,7 @@ velocidadeJogador = 11
 #PONTUACOES
 pontuacao  = 0
 pontuacaoVitoria  = 5
-fimDeJogo  = False #indica que o jogo terminouuu
+fimDeJogo  = False #indica que o jogo terminou
 fonte = pygame.font.Font(None, 28) #tamanho da fonte
 
 
