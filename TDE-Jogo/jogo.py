@@ -27,7 +27,7 @@ tamanhoAlvo  = 50 #tamanho alvos
 posicaoAlvo = [random.randint(0, larguraTela  - tamanhoAlvo), random.randint(0, alturaTela  - tamanhoAlvo)]
 tamanhoObs = 70
 posicaoObstaculo  = [random.randint(0, larguraTela  - tamanhoObs), random.randint(0, alturaTela  - tamanhoObs)]
-#define a posição dos alvos em algum lugar aleatório da tela 
+#define a posição dos alvos em algum lugar aleatório da tela.
 
 
 # velocidade 10px por movimento
