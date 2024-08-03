@@ -1,4 +1,4 @@
-
+##comentário
 import datetime
 
 year = datetime.datetime.now().year
@@ -29,6 +29,5 @@ else:
 
 
 print(f"A sua idade é {age}")
-
 
 
