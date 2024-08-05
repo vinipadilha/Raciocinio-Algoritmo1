@@ -29,5 +29,6 @@ else:
 
 
 print(f"A sua idade é {age}")
+print()
 
 
